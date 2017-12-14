@@ -1,0 +1,17 @@
+---
+- name: Ensure config file directory exists
+  file: "path={{ docker_config_file | dirname }} state=directory"
+  when:
+    - docker_opts is defined
+    - docker_opts is not none
+    - docker_opts|length != 0
+
+- name: Configure docker options
+  copy:
+    dest: "{{ docker_config_file }}"
+    content: "{{ docker_opts | to_nice_json(indent=4) }}"
+  notify: restart docker
+  when:
+    - docker_opts is defined
+    - docker_opts is not none
+    - docker_opts|length != 0
