@@ -81,6 +81,7 @@ script:
   - 'docker cp "$(cat ${container_id})":/etc/docker/daemon.json ${docker_config}'
   - 'grep 8.8.8.8 ${docker_config}'
   - 'grep 8.8.4.4 ${docker_config}'
+  - 'grep "\"debug\": false" ${docker_config}'
   - 'cat ${docker_config}'
 
   # Test Idempotence
